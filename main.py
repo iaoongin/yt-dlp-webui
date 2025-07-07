@@ -84,7 +84,7 @@ iface = gr.Interface(
         lines=1,
         placeholder="输入视频URL...",
         label="视频URL",
-        value="https://www.bilibili.com/video/BV1Un3Rz2Eum",
+        value="https://www.bilibili.com/video/BV1MN41187U6",
     ),
     outputs=[
         gr.Textbox(label="下载状态"),  # 显示下载状态
