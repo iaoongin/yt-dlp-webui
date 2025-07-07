@@ -96,7 +96,7 @@ iface = gr.Interface(
     ],  # 设置视频预览的高度
     title="视频下载器",
     description="输入视频URL以下载视频",
-    allow_flagging="never",  # 禁用 Flag 按钮
+    flagging_mode="never",  # 禁用 Flag 按钮
 )
 
 if __name__ == "__main__":
