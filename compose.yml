@@ -8,3 +8,5 @@ services:
       - "7860:7860"
     volumes:
       - ./downloads:/app/downloads # 挂载本地下载目录
+    # 限制cpu用量为80%
+    cpus: 0.8
