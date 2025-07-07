@@ -68,7 +68,12 @@ def download_video(url):
 
     # 如果视频不在缓存中，进行下载
     # ydl_opts = {"format": "best", "outtmpl": video_filepath}  # 使用自定义文件名
-    ydl_opts = {"outtmpl": video_filepath}  # 使用自定义文件名
+    ydl_opts = {
+        "format": "bv[ext=mp4][vcodec^=avc1]+ba[acodec^=mp4a]/best",
+        "merge_output_format": "mp4",
+        "postprocessor_args": ["-c", "copy"],
+        "outtmpl": video_filepath,
+    }  # 使用自定义文件名
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
@@ -84,7 +89,7 @@ iface = gr.Interface(
         lines=1,
         placeholder="输入视频URL...",
         label="视频URL",
-        value="https://www.bilibili.com/video/BV1MN41187U6",
+        value="https://www.bilibili.com/video/BV1MN41187U6?p=1",
     ),
     outputs=[
         gr.Textbox(label="下载状态"),  # 显示下载状态
