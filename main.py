@@ -7,9 +7,11 @@ import hashlib
 
 # 定义下载目录
 download_dir = "downloads"
+download_tmp_dir = "downloads/tmp"
 
 # 确保下载目录存在
 os.makedirs(download_dir, exist_ok=True)
+os.makedirs(download_tmp_dir, exist_ok=True)
 
 
 def md5_hash(text):
@@ -64,7 +66,7 @@ def download_video(url):
     # 自定义文件名规则，使用URL的MD5哈希值
     safe_title = sanitize_filename(video_title) if video_title else "video"
     video_filename = f"{url_hash}_{video_id}_{safe_title}.mp4"
-    video_filepath = os.path.join(download_dir, video_filename)
+    tmp_video_filepath = os.path.join(download_tmp_dir, video_filename)
 
     # 如果视频不在缓存中，进行下载
     # ydl_opts = {"format": "best", "outtmpl": video_filepath}  # 使用自定义文件名
@@ -72,10 +74,14 @@ def download_video(url):
         "format": "bv[ext=mp4][vcodec^=avc1]+ba[acodec^=mp4a]/best",
         "merge_output_format": "mp4",
         "postprocessor_args": ["-c", "copy"],
-        "outtmpl": video_filepath,
+        "outtmpl": tmp_video_filepath,
     }  # 使用自定义文件名
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
+
+    # 下载完成后，将视频文件移动到下载目录
+    video_filepath = os.path.join(download_dir, video_filename)
+    os.rename(tmp_video_filepath, video_filepath)
 
     elapsed_time = time.time() - start_time  # 计算执行时间
     # 分别对应不同的输出参数
