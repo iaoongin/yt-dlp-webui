@@ -1,0 +1,10 @@
+services:
+  web:
+    build:
+      context: . # 指定 Dockerfile 所在目录
+    image: yt-dlp-webui:latest
+    container_name: yt-dlp-webui
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./downloads:/app/downloads # 挂载本地下载目录
