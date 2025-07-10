@@ -108,6 +108,11 @@ iface = gr.Interface(
     title="视频下载器",
     description="输入视频URL以下载视频",
     flagging_mode="never",  # 禁用 Flag 按钮
+    article="""
+     <a href='https://github.com/iaoongin/yt-dlp-webui' target='_blank' title='GitHub 仓库'>
+            <img src='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' alt='GitHub' width='32' style='vertical-align:middle;'>
+        </a>
+    """,
 )
 
 if __name__ == "__main__":
